@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+    <meta charset = 'UTF-8'>
+    <title>ChatBot</title>
+    {% block scripts %}
+    <script>
+    function sendAsk() {
+        ctext = document.getElementById('chattext').value;
+        if(ctext == ''){
+            document.getElementById('chattext').focus();
+            return false;
+        }
+        //alert(ctext);
+        document.getElementById('chatbox').innerHTML += ctext;
+    }
+    </script>
+    {% endblock %}
+
+    {% block styles %}
+    <style>
+        .chatheader {
+            position:fixed;
+            left:0px;
+            top:0px;
+            width:100%;
+            height:7%;
+            background-color:#BBCCDD;
+            color:#000000;
+            text-align:center;
+        }
+        .chatfooter {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
+            height:7%;
+            background-color:#fff;
+            color:#000000;
+            text-align:center;
+        }
+        .chatcontext {
+            margin-top: 7%;
+            height:100%;
+            background-color:#BBCCDD;
+        }
+    </style>
+    {%endblock%}
+</head>
+<body style="height:100%;background-color:#BBCCDD;">
+    
+    <div style="height:100%;background-color:#e7f4f5d0;">
+        <div class='chatheader'>
+            <table width="100%">
+                <tr>
+                    <td width="50%" align = 'left'><a style='cursor:pointer;' href="http://127.0.0.1:8000/"><img src="C:\Users\user\Downloads\pngegg (2).png" height="20" width="20"></a></td>
+                    <td width="50%" align = 'left'><font size='5'><b>우리투어 상담 챗봇</b></font></td>
+                    <td width="50%" align = 'center'><a href="http://127.0.0.1:8000/"><img src="C:\Users\user\Downloads\pngwing.com.png" height="31" width="31"></a></td>
+                    <td width="50%" align = 'right'><a href="http://127.0.0.1:8000/"><img src="C:\Users\user\Downloads\pngwing.com (1).png" height="40" width="40"></a></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class='chatcontext' id="chatbox">...</div>
+
+        <div class='chatfooter'>
+            <table width="100%">
+                <tr>
+                    <td width="85%" align = 'left'>
+                        <input type="text" id='chattext' style="padding:10px 0; width:100%; border:solid 0px #000000;">
+                    </td>
+                    <td width="15%" align = 'right'>
+                        <button style="padding:10px 0; width:100%;" onclick='sendAsk()'>전송</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>    
+</html>

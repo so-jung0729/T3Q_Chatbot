@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+    <meta charset = 'UTF-8'>
+    <title>ChatBot</title>
+    {% block scripts %}
+    <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookie = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i ++){
+                var cookie = jQuery.trim(cookes[i]);
+                // Does this cookie string begin with the name we wnat?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken')
+
+    var xhr;
+
+    function sendAsk() {
+        ctext = document.getElementById('chattext').value;
+        if(ctext == ''){
+            document.getElementById('chattext').focus();
+            return false;
+        }
+        addtext = "<div style='margin:14px 0;text-align:right;'><span style='background-color:yellow;padding:5px 8px;border-radius:5px;'>" + ctext + "</span></div>";
+        document.getElementById('chatbox').innerHTML += addtext;
+
+        var strurl = 'chatanswer?ctext=' + ctext;
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                var data = xhr.responseText;
+                var obj = JSON.parse(data);
+
+                bottext = "<div style='margin:14px 0;text-align:left;'><span style='background-color:#fff;padding:5px 8px;border-radius:5px;'>"+ obj.anstext+ "</span></div>";
+                document.getElementById('chatbox').innerHTML += bottext;
+            }
+        };
+
+
+        xhr.open('GET', strurl);
+        xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        xhr.send(null)
+    }
+    </script>
+    {% endblock %}
+    
+    {%block styles%}
+    <style>
+        
+        .chatheader {
+            position:fixed;
+            left:0px;
+            top:0px;
+            width:100%;
+            height:45px;
+            background-color:  #BBCCDD;
+            color:#000000;
+            text-align:center;
+        }
+        .chatfooter {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
+            height:50px;
+            background-color:#fff;
+            color:#000000;
+            text-align:center;
+        }
+        .chatcontext {
+            margin-top: 60px;
+            margin-left:3%;
+            margin-right:3%;
+            height:100%;
+            background-color:#BBCCDD;
+        }
+        .inputbox {
+            margin-top: 60px;
+        }    
+
+
+    </style>
+    {%endblock%}
+</head>
+
+{%load static%}
+<body style="height:100%;background-color:#BBCCDD;">
+    
+    <div style="height:100%;background-color:#BBCCDD;">
+        <div class='chatheader'>
+            <table width="100%">
+                <tr>
+                    <td  width="10%" align='left' ><a style='cursor:pointer; margin-left:20px 1;' href="http://127.0.0.1:8000/"><img src={%static 'image/pngegg (2).png' %} height="20" width="20"></a></td>
+                    
+                    <td width="50%" align = 'center'><font size='5'><b>우리투어 상담 챗봇</b></font></td>
+
+                    <td width="10%" align = 'right' style="margin-right:10px;"><img src={%static 'image/pngwing.com.png' %} height="35" width="31"><img src={%static 'image/pngwing.com (1).png' %} height="40" width="40"></td>
+
+                </tr>
+            </table>
+        </div>
+        
+        <div class='chatcontext' id="chatbox"></div>
+
+        <div class='chatfooter'>
+            <table width="100%">
+                <tr>
+                    <td width="85%" align = 'left'>
+                        <input type="text" id='chattext' style="padding:10px 5px; width:95%; border:solid 0px #000000;word-break:break-word;margin-left:3%;">
+                    </td>
+                    <td width="15%" align = 'right'>
+                        <button style="cursor:pointer; padding:10px 3px; width:80%; border-radius:5px; border:solid 0px; margin-right:10px;" onclick='sendAsk()'>SEND</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>    
+</html>

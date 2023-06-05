@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Woori Tour </title>
+        
+        <style>
+            a {
+                color: black;
+                text-decoration: none;
+                background-color: white;
+                padding: 5px;
+                border-radius: 10px;
+                font-size: 23px;
+            }
+            #footer{
+                position: fixed;
+                left:5%;
+                right:5%;
+                width: 90%;
+                bottom: 5%;
+                height: 8%;
+                background-color: #ffff;
+                padding: 10px 10px;
+                text-align: center;
+            }
+
+            #h{
+                position: fixed;
+                left: 6%;
+                bottom: 6.5%;
+                height: 8%;
+                background-color: #ffff;
+                padding: 10px 10px;
+                border-radius: 10%;
+            }
+
+            #chatbutton{
+                position: fixed;
+                right: 5%;
+                bottom: 5%;
+                height: 8%;
+                background-color: #ffff;
+                padding: 10px 10px;
+                border-radius: 10%;
+                cursor: pointer;
+                
+            }
+            .slider{
+                width: 640px;
+                height: 480px;
+                position: relative;
+                margin: 0 auto;
+            }
+            .slider input[type=radio]{
+                display: none;
+            }
+            ul.imgs{
+                padding: 0;
+                margin: 0;
+            }
+            ul.imgs li{
+                position: absolute;
+                opacity: 0;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                transition-delay: 0.9s;
+            }
+            .bullets{
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 20px;
+                z-index: 2;
+            }
+            .bullets label{
+                display: inline-block;
+                border-radius: 50%;
+                background-color: rgba(0,0,0,0.55);
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            .slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+                background-color: #fff;
+            }
+            .slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+                background-color: #fff;
+            }
+            .slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+                background-color: #fff;
+            }
+            .slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+                background-color: #fff;
+            }
+
+            .slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+                opacity: 1;
+                transition: 1s;
+                z-index: 1;
+            }
+            .slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+                opacity: 1;
+                transition: 1s;
+                z-index: 1;
+            }
+            .slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+                opacity: 1;
+                transition: 1s;
+                z-index: 1;
+            }
+            .slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+                opacity: 1;
+                transition: 1s;
+                z-index: 1;
+            }
+        </style>
+    </head>
+
+    {%load static%}
+    <body>
+        <div style="float: left;
+        background-color: white;
+        color: black;
+        font-size: 15px;">
+            <h1 style='white-space:pre-wrap;'> 우리투어 | 고객센터</h1>
+        </div>
+
+        <br>
+
+        <div style="float: right;
+        font-size: 20px;">
+            <a href="http://www.wooritour.co/pcA/"><b>Home |</b></a>
+            <a href="http://www.wooritour.co/pcA/member/login.asp"><b style='white-space:pre-wrap;'>Login  </b></a>
+        </div>
+
+        <br><br><br><br>
+        <div class="slider">
+            <input type="radio" name="slide" id="slide1" checked>
+            <input type="radio" name="slide" id="slide2">
+            <ul id="imgholder" class="imgs">
+                <li><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20121223_86%2Fonly_spam_1356195675693COERr_JPEG%2Fopin104_1222_3.jpg&type=sc960_832"
+                    style="border-radius: 5%;"></li>
+                <li><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120407_114%2Fonly_spam_1333802928917pRuEQ_JPEG%2Fonly_spam_a18.jpg&type=sc960_832"
+                    style="border-radius: 5%;"></li>
+            </ul>
+            <div class="bullets">
+                <label for="slide1">&nbsp;</label>
+                <label for="slide2">&nbsp;</label>
+            </div>
+        </div>
+        <div id = 'footer'>
+            <div id='h'>
+                <h1 style='white-space:pre-wrap;'>FAQ </h1>
+            </div>
+            <br>추가문의: 053-950-6742
+            <div id ='chatbutton'>
+                <a href="http://127.0.0.1:8000/home/"><img src={%static 'image/chatbot.png' %} height="60px" width="60px"></a>
+            </div>
+        </div>
+    </body>
+</html>
