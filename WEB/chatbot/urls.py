@@ -20,4 +20,5 @@ from . import views
 
 urlpatterns = [
     path('', views.chathome, name = 'Home'),
+    path('chatanswer', views.chatanswer, name = 'chatanswer')
 ]
