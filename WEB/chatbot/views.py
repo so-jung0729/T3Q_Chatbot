@@ -4,13 +4,11 @@ from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import tqdm     # 반복문 진행률
 
-import tensorflow as tf
-from transformers import AutoTokenizer
-from transformers import TFGPT2LMHeadModel
-import torch
 
+import torch
 import warnings
 warnings.filterwarnings('ignore')
+from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
 
 
 
@@ -25,27 +23,32 @@ def chathome(request):
     
 
 @csrf_exempt
-def chatanswer(request):
-    context = {}
-    chattext = request.GET['ctext']
-   
-    context['result'] = chattext
+def chatanswer(q):
+    return q
+    # Q_TKN = '<usr>'
+    # A_TKN = '<sys>'
+    # BOS = '</s>'
+    # EOS = '</s>'
+    # MASK = '<unused0>'
+    # PAD = '<pad>'
+    # device =  torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    tokenizer = AutoTokenizer.from_pretrained('skt/kogpt2-base-v2', 
-                                              bos_token='</s>', eos_token='</s>', unk_token='<unk>',
-                                              pad_token='<pad>', mask_token='<mask>')
+    # koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
+    #             bos_token=BOS, eos_token=EOS, unk_token='<unk>',
+    #             pad_token=PAD, mask_token=MASK)
+    # model = torch.load('static\\model_save_v10.pt', map_location = device)
 
-    saving_model = TFGPT2LMHeadModel.from_pretrained('static/model.h5')
+    # a = ''
+    # with torch.no_grad():
+    #     while 1:
+    #         input_ids = torch.LongTensor(koGPT2_TOKENIZER.encode(Q_TKN + q + A_TKN + a)).unsqueeze(dim=0).to(device)
+    #         pred = model(input_ids)
+    #         pred = pred.logits
+    #         gen = koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(pred.to('cpu'), dim=-1).squeeze().numpy().tolist())[-1]
+    #         if gen == EOS:
+    #             break
+    #         a += gen.replace('▁', " ")
+    #     return q
 
-    sent = '' + chattext + ''
-    input_ids = [tokenizer.bos_token_id] + tokenizer.encode(sent) + [tokenizer.pad_token_id]
-    input_ids = tf.convert_to_tensor([input_ids])
-    output = saving_model.generate(input_ids, max_length=96, do_sample=True, top_k=2)
-    sentence = tokenizer.decode(output[0].numpy().tolist())
-
-    context['anstext'] = sentence.split('<pad>')[1][:-5]    
-    
-    return JsonResponse(context, content_type = 'application/json')
-
-
-# print(return_answer_by_chatbot('자전거 도로 알려줘'))
+# q =  input('user > ')
+# chatanswer(q)

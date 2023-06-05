@@ -1,26 +1,34 @@
 import pandas as pd
 import tqdm     # 반복문 진행률
 
-import tensorflow as tf
-from transformers import AutoTokenizer
-from transformers import TFGPT2LMHeadModel
 import torch
+from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
 
+def chatanswer(request):
+    Q_TKN = '<usr>'
+    A_TKN = '<sys>'
+    BOS = '</s>'
+    EOS = '</s>'
+    MASK = '<unused0>'
+    PAD = '<pad>'
+    device =  torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def return_answer_by_chatbot(user_text):
-    tokenizer = AutoTokenizer.from_pretrained('skt/kogpt2-base-v2', bos_token='</s>', eos_token='</s>', unk_token='<unk>',
-  pad_token='<pad>', mask_token='<mask>')
-    model = TFGPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2', from_pt=True)
+    koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
+                bos_token=BOS, eos_token=EOS, unk_token='<unk>',
+                pad_token=PAD, mask_token=MASK)
+    model = torch.load('WEB\static\model_save_v10.pt', map_location = device)
 
-    saving_model = TFGPT2LMHeadModel.from_pretrained('chatbotModel\model.h5')
+    a = ''
+    with torch.no_grad():
+        while 1:
+            input_ids = torch.LongTensor(koGPT2_TOKENIZER.encode(Q_TKN + request + A_TKN + a)).unsqueeze(dim=0).to(device)
+            pred = model(input_ids)
+            pred = pred.logits
+            gen = koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(pred.to('cpu'), dim=-1).squeeze().numpy().tolist())[-1]
+            if gen == EOS:
+                break
+            a += gen.replace('▁', " ")
+        print(a.strip())
 
-    sent = '' + user_text + ''
-    input_ids = [tokenizer.bos_token_id] + tokenizer.encode(sent) + [tokenizer.pad_token_id]
-    input_ids = tf.convert_to_tensor([input_ids])
-    output = saving_model.generate(input_ids, max_length=96, do_sample=True, top_k=2)
-    sentence = tokenizer.decode(output[0].numpy().tolist())
-    chatbot_response = sentence.split('<pad>')[1][:-5]
-    return chatbot_response
-
-
-print(return_answer_by_chatbot('오늘 휴관일이야?'))
+q =  input('user > ')
+chatanswer(q)
