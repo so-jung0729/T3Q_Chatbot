@@ -19,6 +19,8 @@ from django.conf.urls import include
 from . import views
 
 urlpatterns = [
-    path('', views.chathome, name = 'Home'),
-    path('chatanswer', views.chatanswer, name = 'chatanswer')
+    path('', views.index, name='index'),
+    path('chathome/', views.chathome, name='chathome'),
+    path('chathome/chatanswer/', views.chatanswer, name='chatanswer'),
 ]
+

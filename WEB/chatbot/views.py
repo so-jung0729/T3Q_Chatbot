@@ -13,9 +13,9 @@ from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
 
 
 # Create your views here.
-def home(request):
+def index(request):
     context = {}
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
 def chathome(request):
     context = {}
