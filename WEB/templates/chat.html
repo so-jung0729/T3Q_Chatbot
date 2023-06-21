@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ChatBot</title>
+    <title>세이피</title>
     {% block scripts %}
     <script>
         function getCookie(name) {
@@ -34,9 +34,15 @@
             }
             var addtext = "<div class='message user-message'><div class='user-profile'></div><span>" + ctext + "</span></div>";
             document.getElementById('chatbox').innerHTML += addtext;
-
+        
             var strurl = 'chatanswer?ctext=' + ctext;
-
+            var chatbox = document.getElementById('chatbox');
+            var shouldScrollToBottom = chatbox.scrollTop + chatbox.clientHeight === chatbox.scrollHeight;
+            
+            if (shouldScrollToBottom) {
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+            
             xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -46,6 +52,12 @@
                     // 말풍선 색상변경시 여기도 변경필수
                     var bottext = "<div class='message bot-message'><div class='bot-profile'><img src='{% static 'image/threeleaves.jpg' %}' alt='Bot Profile Picture'></div><span style='background-color: #ffffff; color: #000000;'>" + obj.anstext + "</span></div>";
                     document.getElementById('chatbox').innerHTML += bottext;
+                    
+                    //자동
+                    var chatbox = document.getElementById('chatbox');
+                    var latestChat = chatbox.lastElementChild;
+                    latestChat.scrollIntoView({ block: 'end' });
+                    
                 }
             };
 
@@ -55,6 +67,10 @@
 
             // 입력창 리셋
             document.getElementById('chattext').value = '';
+
+            // 자동 스크롤
+            var chatbox = document.getElementById('chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
         }
 
         // 엔터키로 전송
@@ -71,7 +87,9 @@
     <style>
         body {
             height: 100%;
-            background-color: #eaeefa;
+            background-image: url("{% static 'image/bg1.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
             font-family: Maplestory Light.ttf, sans-serif;
         }
 
@@ -83,7 +101,7 @@
 
         .chat-header {
             padding: 0.5px;
-            background-color: #eaeefa;
+            background-color: #0000000;
             box-shadow: 0px 1px 3px rgba(48, 71, 22, 0.5); 
             display: flex;
             justify-content: space-between;
@@ -118,7 +136,7 @@
         }
 
         .user-message span{
-            background-color: #3f5ddf;
+            background-color: #4285F4;
             color: #ffffff;
             border-radius: 5px;
             padding: 10px 15px;
@@ -148,7 +166,7 @@
             right: -6px;
             bottom: 5px;
             border-width: 8px 0 8px 10px;
-            border-color: transparent transparent transparent #3f5ddf;
+            border-color: transparent transparent transparent #4285F4;
         }
 
         .bot-message span:before {
