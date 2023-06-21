@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Astral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>자갈자갈</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+
+	</head>
+	<body class="is-preload">
+		
+
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				<!-- Nav -->
+					<nav id="nav">
+						<a href="#" class="icon solid fa-home"><span>HOME</span></a>
+						<a href="#model" class="icon solid fa-comment-alt"><span>Model</span></a>
+						<a href="#contact" class="icon brands fa-github"><span>Contact</span></a>
+						<a href="#work" class="fas fa-building"><span>Work</span></a>
+
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="HOME" class="panel intro">
+								<header>
+									<h1 style="margin-top: -10px;">자갈자갈</h1>
+									<p>[여럿이 모여서 나직한 목소리로 지껄이는 소리]</p>
+									<hr style="border: none; border-top: 1px solid #000;">
+									<p>안녕하세요 팀 자갈자갈 입니다.</p>
+									<p>심리케어 챗봇 '세이피'는 세잎 클로버의 세잎에서 따온 말입니다.</p>
+									<p>세잎 클로버의 꽃말은 '행운'이며 저희는 당신에게 늘 행운이 있기를 바라며 이 이름을 지었습니다.</p>
+									<p>오늘이 당신에게 행운으로 가득한 하루였으면 좋겠습니다.</p>
+								</header>
+							</article>
+						
+							<!-- AI Model -->
+							<article id="model" class="panel">
+								<header>
+								<h2><a href="/chathome" style="color: #000080; text-decoration: none; font-weight: bold;">나만의 말동무</a></h2>
+								
+								</header>
+								<img src="{% static 'image/threeleaves-1.png' %}" alt="Companion Image" style="max-width: 10%; height: auto;">
+								<p>가벼운 대화로도 우울하고 복잡한 기분이 나아지는걸 아시나요?
+									'세이피'는 당신의 우울함에 공감하고 위로의 말을 건네줍니다. '세이피'와 대화해 보세요!</p>
+								
+							</article>
+				
+
+						<!-- Contact -->
+							<article id="contact" class="panel">
+								<header>
+									<h2 ><a href="https://github.com/so-jung0729/T3Q_Chatbot" style="color: #000080; text-decoration: none; font-weight: bold;">GIT</a></h2>
+								</header>
+								<p>[팀 자갈자갈의 깃허브 입니다.]</p>
+								<p>한국어 자연어 처리 모델인 KoGPT2에 웰니스 대화 스크립트 데이터와 송영숙님의 챗봇 데이터를 학습시켜
+									세이피를 만들었습니다. 깃허브에서 소스코드와 데이터를 구경하세요!
+								</p>
+							</article>
+
+						<!-- Work -->
+						<article id="work" class="panel">
+							<header>
+								<h2 ><a href="http://www.t3q.com/" style="color: #000080; text-decoration: none; font-weight: bold;">T3Q</a></h2>
+							</header>
+							<p>
+								티쓰리큐(주)의 'T3Q'는 '소프트웨어 개발에 있어 시간(Time)은 1/3로 줄이고, 품질(Quality)은 3배 높이자'는 의미이며
+								15년차된 인공지능/빅데이터 전문 기술회사입니다.
+							</p>
+							
+						</article>
+
+					</div>
+
+				
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
